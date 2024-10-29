@@ -1,14 +1,18 @@
-package com.example.sixthlab.database
+package com.example.sixthlab
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import java.util.UUID
-import com.example.sixthlab.Crime
 
 @Dao
 interface CrimeDao {
+    @Insert
+    fun insert(crime: Crime)
+
     @Query("SELECT * FROM crime")
     fun getCrimes(): List<Crime>
-    @Query("SELECT * FROM crime WHERE id=(:id)")
-    fun getCrime(id: UUID): Crime?
+
+    @Query("SELECT * FROM crime WHERE id = :id")
+    fun getCrimeById(id: UUID): Crime?
 }
