@@ -14,5 +14,5 @@ interface CrimeDao {
     fun getCrimes(): List<Crime>
 
     @Query("SELECT * FROM crime WHERE id = :id")
-    fun getCrimeById(id: UUID): Crime?
+    fun getCrime(id: UUID): Crime?
 }
