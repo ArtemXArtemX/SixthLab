@@ -17,11 +17,14 @@ import java.util.UUID
 
 private const val ARG_CRIME_ID = "crime_id"
 private const val TAG = "CrimeFragment"
+private const val DIALOG_DATE = "DialogDate"
 class CrimeFragment: Fragment() {
     private lateinit var crime: Crime
     private lateinit var titleField: EditText
     private lateinit var dateButton: Button
     private lateinit var solvedCheckBox: CheckBox
+
+
     private val crimeDetailViewModel:
             CrimeDetailViewModel by lazy {
         ViewModelProviders.of(this).get(CrimeDetailViewModel::class.java)
@@ -37,10 +40,6 @@ class CrimeFragment: Fragment() {
         titleField = view.findViewById(R.id.crime_title) as EditText
         dateButton = view.findViewById(R.id.crime_date) as Button
         solvedCheckBox = view.findViewById(R.id.crime_solved) as CheckBox
-        dateButton.apply {
-            text = crime.date.toString()
-            isEnabled = false
-        }
         return view
     }
 
@@ -71,6 +70,12 @@ class CrimeFragment: Fragment() {
         solvedCheckBox.apply {
             setOnCheckedChangeListener { _, isChecked ->
                 crime.isSolved = isChecked
+            }
+        }
+
+        dateButton.setOnClickListener {
+            DatePickerFragment().apply {
+                show(this@CrimeFragment.requireFragmentManager(), DIALOG_DATE)
             }
         }
     }
